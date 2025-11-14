@@ -1,3 +1,14 @@
+:root {
+    --color-brand-black: #000000;
+    --color-brand-red: #EC2529;
+    --color-brand-blue: #214791;
+    --color-brand-sky: #E8F0FB;
+    /* Primary alias for components */
+    --color-primary: var(--color-brand-blue);
+    --color-primary-light: var(--color-brand-sky);
+    --color-primary-accent: var(--color-brand-red);
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
