@@ -35,10 +35,25 @@
 
     <!-- Logo dan info -->
     <div class="bg-white">
-      <div class="max-w-7xl mx-auto px-4 py-5 md:py-0">
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 items-center">
-          <div class="flex items-center justify-start col-span-2 lg:col-span-1">
-            <div class="w-32 h-24 flex items-center justify-center flex-shrink-0">
+      <div class="max-w-7xl mx-auto px-4 py-3 md:py-0">
+        <!-- Mobile: Logo & Hamburger in one row, di luar grid -->
+        <div class="flex items-center justify-between w-full py-2 lg:hidden">
+          <div class="w-24 h-14 flex items-center justify-start flex-shrink-0">
+            <img :src="logo" alt="Anugerah Auto" class="w-full h-full object-contain"/>
+          </div>
+          <button class="p-2 mr-1" @click="toggleMobileMenu" aria-label="Menu">
+            <svg v-if="!mobileMenuOpen" xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <svg v-else xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <!-- Desktop: grid layout -->
+        <div class="hidden lg:grid grid-cols-4 gap-2 items-center">
+          <div class="flex items-center justify-start col-span-1">
+            <div class="w-24 h-14 flex items-center justify-center flex-shrink-0">
               <img :src="logo" alt="Anugerah Auto" class="w-full h-full object-contain"/>
             </div>
           </div>
@@ -64,17 +79,8 @@
           </div>
 
           <div class="flex justify-end col-span-2 lg:col-span-1">
-            <button class="bg-brand-red hover:opacity-90 text-white px-6 py-3 rounded-lg font-semibold transition-colors lg:block hidden">
+            <button class="bg-brand-red hover:opacity-90 text-white px-4 py-2 rounded-lg font-semibold transition-colors lg:block hidden">
               {{ L.book }}
-            </button>
-
-            <button class="lg:hidden p-2" @click="toggleMobileMenu">
-              <svg v-if="!mobileMenuOpen" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-              <svg v-else xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
             </button>
           </div>
         </div>
@@ -98,16 +104,16 @@
 
     <!-- Navigasi Mobile -->
     <div v-if="mobileMenuOpen" class="lg:hidden border-t border-gray-200 bg-white shadow-xl">
-      <nav class="flex flex-col px-4 py-3">
-        <a href="#beranda" class="py-2 text-gray-700 hover:text-brand-blue font-medium">{{ L.home }}</a>
-        <a href="#tentang" class="py-2 text-gray-700 hover:text-brand-blue font-medium">{{ L.about }}</a>
-        <a href="#layanan" class="py-2 text-gray-700 hover:text-brand-blue font-medium">{{ L.services }}</a>
-        <a href="#artikel" class="py-2 text-gray-700 hover:text-brand-blue font-medium">{{ L.articles }}</a>
-        <button @click="scrollToFooter" class="py-2 text-gray-700 hover:text-brand-blue font-medium">
+      <nav class="flex flex-col px-4 py-3 text-sm">
+        <a href="#beranda" class="py-2 text-gray-700 hover:text-brand-blue font-medium" @click="closeMobileMenu">{{ L.home }}</a>
+        <a href="#tentang" class="py-2 text-gray-700 hover:text-brand-blue font-medium" @click="closeMobileMenu">{{ L.about }}</a>
+        <a href="#layanan" class="py-2 text-gray-700 hover:text-brand-blue font-medium" @click="closeMobileMenu">{{ L.services }}</a>
+        <a href="#artikel" class="py-2 text-gray-700 hover:text-brand-blue font-medium" @click="closeMobileMenu">{{ L.articles }}</a>
+        <button @click="scrollToFooter" class="py-2 text-gray-700 hover:text-brand-blue font-medium text-left w-full">
           {{ L.contact }}
         </button>
       </nav>
-      <button class="w-full bg-brand-red hover:bg-red-700 text-white px-6 py-3 rounded-b-lg font-semibold transition-colors">
+      <button class="w-full bg-brand-red hover:bg-red-700 text-white px-4 py-2 rounded-b-lg font-semibold transition-colors" @click="closeMobileMenu">
         {{ L.book }}
       </button>
     </div>
@@ -163,6 +169,9 @@ const setLocale = (l) => {
 const toggleMobileMenu = () => {
   mobileMenuOpen.value = !mobileMenuOpen.value
 }
+const closeMobileMenu = () => {
+  mobileMenuOpen.value = false
+}
 
 const scrollToFooter = () => {
   const footer = document.getElementById('footer')
@@ -174,6 +183,20 @@ const scrollToFooter = () => {
 </script>
 
 <style scoped>
+/* Brand Colors */
 .bg-brand-blue { background-color: #214791; }
 .bg-brand-red { background-color: #EC2529; }
+/* Mobile improvements */
+@media (max-width: 640px) {
+  .max-w-7xl {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .grid-cols-2 {
+    gap: 0.5rem;
+  }
+  .text-xs, .text-sm {
+    font-size: 0.9rem;
+  }
+}
 </style>
