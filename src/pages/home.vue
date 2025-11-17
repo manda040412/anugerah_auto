@@ -130,8 +130,13 @@
     </section>
 
     <section class="flex justify-center items-center py-2 mb-8">
-      <div class="w-[90vw] max-w-4xl mx-auto" style="background: #dddddd; clip-path: polygon(0 0, 95% 0, 100% 20%, 100% 100%, 5% 100%, 0 80%);">
-        <div class="flex flex-col items-center justify-center h-[400px]">
+      <div class="w-[90vw] max-w-4xl mx-auto relative overflow-hidden" style="clip-path: polygon(0 0, 95% 0, 100% 20%, 100% 100%, 5% 100%, 0 80%);">
+        <!-- Gambar poligonal -->
+        <img src="../src/assets/IMG_20251009_113730.png" alt="Booking" class="absolute inset-0 w-full h-full object-cover" style="clip-path: inherit; z-index:1;" />
+        <!-- Overlay fade biru -->
+        <div class="absolute inset-0" style="z-index:2; background: linear-gradient(180deg, rgba(33,71,145,0.6) 0%, rgba(33,71,145,0.2) 60%, transparent 100%);"></div>
+        <!-- Konten -->
+        <div class="flex flex-col items-center justify-center h-[400px] relative z-10">
           <h2 class="text-2xl md:text-3xl font-bold text-white text-center mb-6 mt-8">{{ L.bookingTitle }}</h2>
           <button class="px-6 py-2 rounded-lg font-bold text-[#214791] text-sm border-2 border-[#214791] bg-white hover:bg-[#214791] hover:text-white transition-colors">
             {{ L.bookingButton }}
