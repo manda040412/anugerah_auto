@@ -4,7 +4,7 @@
     <div class="relative w-full h-[350px] md:h-[500px] bg-gray-300 flex items-center justify-center">
       <span class="text-gray-500 text-xl">Hero Image / Slider</span>
 
-      <div class="absolute bottom-0 w-full z-10">
+      <div class="absolute bottom-0 w-full z-0 mb-4 hidden sm:block">
         <div class="max-w-7xl mx-auto px-4">
           <FasilitasOverlay :locale="props.locale" />
         </div>
@@ -25,17 +25,17 @@
           </div>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-6 place-items-center">
-          <div class="bg-gray-300 rounded-lg w-[250px] h-[200px] p-4 flex items-center justify-center">
-            <span class="text-gray-500">Image 1</span>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="w-full max-w-xs h-48 flex items-center justify-center mx-auto mb-4">
+            <img src="../assets/cctv anugerah_auto.JPG" alt="Image 1" class="w-full h-full object-cover rounded-lg" />
           </div>
 
-          <div class="bg-gray-300 rounded-lg w-[550px] h-[200px] p-4 flex items-center justify-center">
-            <span class="text-gray-500">Image 2</span>
+          <div class="w-full max-w-md h-48 flex items-center justify-center mx-auto mb-4">
+            <img src="../assets/anugerah_auto.JPG" alt="Image 2" class="w-full h-full object-cover rounded-lg" />
           </div>
 
-          <div class="bg-gray-300 rounded-lg w-[250px] h-[200px] p-4 flex items-center justify-center">
-            <span class="text-gray-500">Image 3</span>
+          <div class="w-full max-w-xs h-48 flex items-center justify-center mx-auto mb-4">
+            <img src="../assets/pengecekkan_anugerah_auto.JPG" alt="Image 3" class="w-full h-full object-cover rounded-lg" />
           </div>
         </div>
       </div>
@@ -44,7 +44,7 @@
     <section id="layanan" class="py-16 bg-gray-50">
       <div class="max-w-7xl mx-auto px-4 relative">
         <div class="absolute left-0 right-0 top-0 flex justify-center pointer-events-none select-none" style="z-index:0;">
-          <span style="font-size:7rem; font-weight:600; color:#E8F0FB; letter-spacing:0.1em; line-height:1;">{{ L.services }}</span>
+          <span class="font-extrabold text-4xl md:text-7xl lg:text-[7rem]" style="color:#E8F0FB; letter-spacing:0.1em; line-height:1;">{{ L.services }}</span>
         </div>
         <div class="relative z-10">
           <div class="text-center mb-4">
@@ -69,30 +69,24 @@
       </div>
     </section>
 
-    <div class="relative z-20" style="height:0;">
-      <div class="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-0 w-full flex justify-center pointer-events-none" style="z-index:20;">
-        <div class="max-w-xl w-full bg-[#2952A3] rounded-lg shadow-md flex flex-col md:flex-row items-center justify-between px-6 py-4 pointer-events-auto">
-
+    <div class="w-full md:relative md:z-20 mt-6 mb-4">
+      <div class="static md:absolute left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:top-0 w-full flex justify-center pointer-events-none md:pointer-events-auto" style="z-index:20;">
+        <div class="max-w-xl w-full bg-[#2952A3] rounded-lg shadow-md flex flex-col md:flex-row items-center justify-between px-4 py-4 md:px-6 pointer-events-auto">
           <div class="flex-1 text-white text-left">
             <h3 class="text-sm md:text-base font-bold mb-1">{{ L.ctaTitle }}</h3>
             <p class="text-[10px] text-blue-100 leading-tight">{{ L.ctaHelper }}</p>
           </div>
-
           <div class="flex-shrink-0 flex items-center justify-center mt-2 md:mt-0">
             <div class="flex items-center gap-1.5 bg-white rounded-full px-3 py-1.5 shadow-md" style="min-width:110px;">
-
               <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" style="color:#2952A3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
-
               <div class="flex flex-col leading-tight">
                 <span class="font-bold text-sm text-[#2952A3]">{{ L.ctaPhone }}</span>
                 <span class="text-[10px] text-[#2952A3]">{{ L.phoneHelper }}</span>
               </div>
-
             </div>
           </div>
-
         </div>
       </div>
     </div>
