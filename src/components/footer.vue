@@ -15,9 +15,12 @@
             <h3 class="font-bold text-gray-800 text-sm mb-1">{{ L.hubungiKami }}:</h3>
             <p class="font-bold text-2xl text-gray-900 mb-2">0851-8605-4378</p>
 
-            <div class="flex justify-center md:justify-start">
+            <div class="flex justify-center md:justify-start gap-x-2">
               <div class="w-8 h-8 bg-brand-red rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
                 <img :src="instagramIcon" alt="Instagram" class="w-5 h-5" />
+              </div>
+              <div class="w-8 h-8 bg-brand-red rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
+                <img :src="tiktokIcon" alt="Tiktok" class="w-5 h-5" />
               </div>
             </div>
           </div>
@@ -73,7 +76,8 @@
 <script setup>
 import { ref, computed } from 'vue'
 import logo from '../assets/logo_anugerah_auto.svg'
-import instagramIcon from '../assets/instagram.png' 
+import instagramIcon from '../assets/instagram.png'
+import tiktokIcon from '../assets/tiktok.png'
 
 const currentYear = new Date().getFullYear()
 

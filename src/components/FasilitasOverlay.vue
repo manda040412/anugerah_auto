@@ -48,16 +48,16 @@ const fasilitasLabels = {
   id: [
     { icon: 'wifi', label: 'Wi-Fi', description: 'gratis' },
     { icon: 'sofa', label: 'Ruang Tunggu', description: 'Nyaman & Ber-AC' },
-    { icon: 'snack', label: 'Minuman & Snack', description: 'Tersedia' },
+    { icon: 'snack', label: 'Minuman', description: 'Tersedia Kopi & Teh' },
     { icon: 'dropoff', label: 'Layanan Drop-Off', description: 'di Luar Jam Kerja' },
-    { icon: 'tv', label: 'Fasilitas Hiburan', description: 'TV & Musik' },
+    { icon: 'tv', label: 'Pemantauan CCTV', description: 'Tersedia Live Streaming' },
   ],
   en: [
     { icon: 'wifi', label: 'Wi-Fi', description: 'free' },
     { icon: 'sofa', label: 'Waiting Room', description: 'Comfortable & AC' },
-    { icon: 'snack', label: 'Beverages & Snacks', description: 'Available' },
+    { icon: 'snack', label: 'Beverages', description: 'Coffee & Tea Available' },
     { icon: 'dropoff', label: 'Drop-Off Service', description: 'Outside Working Hours' },
-    { icon: 'tv', label: 'Entertainment', description: 'TV & Music' },
+    { icon: 'tv', label: 'Live CCTV Monitoring', description: 'Live Streaming Available' },
   ]
 };
 
