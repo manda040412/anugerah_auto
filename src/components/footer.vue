@@ -1,16 +1,18 @@
 <template>
-  <footer class="bg-white border-t border-gray-200">
+  <footer id="footer" class="bg-white border-t border-gray-200">
     <div class="bg-white py-2 px-4">
       <div class="max-w-7xl mx-auto">
         
         <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-x-8 lg:gap-x-12 gap-y-8 items-center">
           
+          <!-- Logo -->
           <div class="flex flex-col h-full items-start space-y-2 col-span-2 md:col-span-1">
             <div class="w-64 h-64 flex items-center justify-start">
               <img :src="logo" alt="Anugerah Auto" class="w-full h-full object-contain" />
             </div>
           </div>
 
+          <!-- Hubungi Kami -->
           <div class="flex flex-col h-full justify-center items-start">
             <h3 class="font-bold text-gray-800 text-sm mb-1">{{ L.hubungiKami }}:</h3>
             <p class="font-bold text-2xl text-gray-900 mb-2">0851-8605-4378</p>
@@ -22,6 +24,7 @@
             </div>
           </div>
 
+          <!-- Jadwal & Maps -->
           <div class="flex flex-col h-full justify-center items-start">
             <div class="flex items-start gap-2 mb-4">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-brand-red flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -45,6 +48,7 @@
             </div>
           </div>
 
+          <!-- Lokasi -->
           <div class="flex flex-col h-full justify-center items-start md:items-end">
             <div class="text-left md:text-right">
               <h3 class="font-bold text-gray-900 text-lg mb-3">{{ L.locationTitle }}</h3>
@@ -62,7 +66,8 @@
       </div>
     </div>
 
-    <div class="bg-brand-blue text-white text-left py-4 px-24">
+    <!-- Copyright -->
+    <div class="bg-brand-blue text-white text-left py-4 px-6 md:px-24">
       <p class="text-xs md:text-sm">
         © {{ currentYear }} {{ L.copyright }}
       </p>
@@ -97,7 +102,6 @@ const labels = {
 }
 
 const locale = ref('id') 
-
 const L = computed(() => labels[locale.value])
 
 defineProps({
@@ -117,5 +121,6 @@ defineExpose({
 </script>
 
 <style scoped>
-/* Additional styles if needed */
+.bg-brand-blue { background-color: #214791; }
+.bg-brand-red { background-color: #EC2529; }
 </style>
