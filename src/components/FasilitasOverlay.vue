@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 bg-brand-blue rounded-lg shadow-xl overflow-hidden">
+  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 bg-brand-blue rounded-lg shadow-xl overflow-hidden">
     <div
       v-for="(item, index) in fasilitas"
       :key="index"
@@ -24,10 +24,11 @@ const getIcon = (iconName) => {
   // mapping nama icon ke file png di /src/assets
   const iconMap = {
     wifi: "free wifi.png",
-    sofa: "waiting room.png",
-    snack: "Beverages.png",
-    dropoff: "drop-off.png",
-    tv: "entertaiment.png",
+    sofa: "waiting room.png", 
+    tv: "entertaiment.png", 
+    sparepart: "sparepart.png", 
+    transparency: "Transparency.png", 
+    quality: "Quality.png", 
   };
 
   const fileName = iconMap[iconName] || "default.png"; // fallback
@@ -46,18 +47,20 @@ const props = defineProps({
 
 const fasilitasLabels = {
   id: [
-    { icon: 'wifi', label: 'Wi-Fi', description: 'gratis' },
-    { icon: 'sofa', label: 'Ruang Tunggu', description: 'Nyaman & Ber-AC' },
-    { icon: 'snack', label: 'Minuman', description: 'Tersedia Kopi & Teh' },
-    { icon: 'dropoff', label: 'Layanan Drop-Off', description: 'di Luar Jam Kerja' },
+    { icon: 'wifi', label: 'Wi-Fi', description: 'Gratis' },
+    { icon: 'sofa', label: 'Ruang Tunggu', description: 'Nyaman, Ber-AC, Kopi & Teh Gratis' },
     { icon: 'tv', label: 'Pemantauan CCTV', description: 'Tersedia Live Streaming' },
+    { icon: 'sparepart', label: 'Suku Cadang', description: 'Lengkap (5000+ SKU)' },
+    { icon: 'transparency', label: 'Transparansi', description: 'Pengerjaan & Harga' },
+    { icon: 'quality', label: 'Kualitas & Garansi', description: 'Sparepart Terpercaya & Jaminan Service' },
   ],
   en: [
-    { icon: 'wifi', label: 'Wi-Fi', description: 'free' },
-    { icon: 'sofa', label: 'Waiting Room', description: 'Comfortable & AC' },
-    { icon: 'snack', label: 'Beverages', description: 'Coffee & Tea Available' },
-    { icon: 'dropoff', label: 'Drop-Off Service', description: 'Outside Working Hours' },
+    { icon: 'wifi', label: 'Wi-Fi', description: 'Free' },
+    { icon: 'sofa', label: 'Waiting Room', description: 'Comfortable, AC, Free Coffee & Tea' },
     { icon: 'tv', label: 'Live CCTV Monitoring', description: 'Live Streaming Available' },
+    { icon: 'sparepart', label: 'Spare Parts', description: 'Complete (5000+ SKUs)' },
+    { icon: 'transparency', label: 'Transparency', description: 'Work Process & Pricing' },
+    { icon: 'quality', label: 'Quality & Guarantee', description: 'Trusted Parts & Service Warranty' },
   ]
 };
 
