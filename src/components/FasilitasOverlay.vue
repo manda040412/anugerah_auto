@@ -21,7 +21,6 @@
 
 <script setup>
 const getIcon = (iconName) => {
-  // mapping nama icon ke file png di /src/assets
   const iconMap = {
     wifi: "free wifi.png",
     sofa: "waiting room.png", 
@@ -31,11 +30,11 @@ const getIcon = (iconName) => {
     quality: "Quality.png", 
   };
 
-  const fileName = iconMap[iconName] || "default.png"; // fallback
+  const fileName = iconMap[iconName] || "default.png";
   return new URL(`../assets/${fileName}`, import.meta.url).href;
 };
 
-import { computed, defineProps } from 'vue';
+import { computed } from 'vue';
 
 const props = defineProps({
   locale: {

@@ -1,7 +1,6 @@
 <template>
   <div class="sticky top-0 z-50 shadow-lg">
-    
-    <!-- Bagian atas -->
+
     <div class="bg-brand-blue text-white py-1 px-4 border-b border-white/10">
       <div class="max-w-7xl mx-auto flex justify-between items-center text-xs md:text-sm">
         <div class="flex items-center gap-2">
@@ -33,10 +32,8 @@
       </div>
     </div>
 
-    <!-- Logo dan info -->
     <div class="bg-white">
       <div class="max-w-7xl mx-auto px-4 py-3 md:py-0">
-        <!-- Mobile: Logo & Hamburger in one row, di luar grid -->
         <div class="flex items-center justify-between w-full py-2 lg:hidden">
           <div class="w-24 h-14 flex items-center justify-start flex-shrink-0">
             <img :src="logo" alt="Anugerah Auto" class="w-full h-full object-contain"/>
@@ -50,7 +47,6 @@
             </svg>
           </button>
         </div>
-        <!-- Desktop: grid layout -->
         <div class="hidden lg:grid grid-cols-4 gap-2 items-center">
           <div class="flex items-center justify-start col-span-1">
             <div class="w-24 h-14 flex items-center justify-center flex-shrink-0">
@@ -87,7 +83,6 @@
       </div>
     </div>
 
-    <!-- Navigasi Desktop -->
     <div class="bg-white border-t border-gray-200 hidden lg:block">
       <div class="max-w-7xl mx-auto px-4 py-3">
         <nav class="flex items-center gap-16 justify-start">
@@ -102,7 +97,6 @@
       </div>
     </div>
 
-    <!-- Navigasi Mobile -->
     <div v-if="mobileMenuOpen" class="lg:hidden border-t border-gray-200 bg-white shadow-xl">
       <nav class="flex flex-col px-4 py-3 text-sm">
         <a href="#beranda" class="py-2 text-gray-700 hover:text-brand-blue font-medium" @click="closeMobileMenu">{{ L.home }}</a>
@@ -121,7 +115,7 @@
 </template>
 
 <script setup>
-import { ref, computed, defineProps, defineEmits } from 'vue'
+import { ref, computed } from 'vue'
 import logo from '../assets/logo_anugerah_auto.svg'
 
 const mobileMenuOpen = ref(false)
@@ -183,10 +177,8 @@ const scrollToFooter = () => {
 </script>
 
 <style scoped>
-/* Brand Colors */
 .bg-brand-blue { background-color: #214791; }
 .bg-brand-red { background-color: #EC2529; }
-/* Mobile improvements */
 @media (max-width: 640px) {
   .max-w-7xl {
     padding-left: 0.5rem;

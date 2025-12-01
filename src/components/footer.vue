@@ -1,7 +1,7 @@
 <template>
   <footer id="footer" class="bg-white border-t border-gray-200">
     <div class="bg-white py-2 px-4">
-      <div class="max-w-7xl mx-auto">
+      <div class="max-w-7xl mx-auto px-4">
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 lg:gap-x-12 gap-y-8 items-center">
 
@@ -65,10 +65,12 @@
       </div>
     </div>
 
-    <div class="bg-brand-blue text-white text-center md:text-left py-4 px-6 md:px-24">
-      <p class="text-xs md:text-sm">
-        © {{ currentYear }} {{ L.copyright }}
-      </p>
+    <div class="bg-brand-blue text-white text-center md:text-left py-4 px-4">
+      <div class="max-w-7xl mx-auto px-4">
+        <p class="text-xs md:text-sm">
+          © {{ currentYear }} {{ L.copyright }}
+        </p>
+      </div>
     </div>
   </footer>
 </template>
