@@ -13,13 +13,32 @@
 
           <div class="col-span-1 md:col-span-1 flex flex-col h-full justify-start items-center md:items-start text-center md:text-left">
             <h3 class="font-normal text-gray-800 text-sm mb-1">{{ L.hubungiKami }}</h3>
-            <p class="font-bold text-lg md:text-xl text-gray-900 mb-2">0851-8605-4378</p>
+            <!-- Nomor telepon dengan link WhatsApp -->
+            <a 
+              href="https://wa.me/6285186054378" 
+              target="_blank"
+              class="font-bold text-lg md:text-xl text-gray-900 mb-2 hover:text-blue-700 transition-colors"
+            >
+              0851-8605-4378
+            </a>
 
             <div class="flex justify-center md:justify-start gap-x-2">
-              <a href="#" target="_blank" class="w-8 h-8 bg-brand-red rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
+              <!-- Instagram dengan link -->
+              <a 
+                href="https://www.instagram.com/anugerahauto/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="w-8 h-8 bg-brand-red rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity"
+              >
                 <img :src="instagramIcon" alt="Instagram" class="w-5 h-5" />
               </a>
-              <a href="#" target="_blank" class="w-8 h-8 bg-brand-red rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
+              <!-- TikTok dengan link -->
+              <a 
+                href="https://www.tiktok.com/@anugerahautosunter" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="w-8 h-8 bg-brand-red rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity"
+              >
                 <img :src="tiktokIcon" alt="Tiktok" class="w-5 h-5" />
               </a>
             </div>
@@ -39,12 +58,12 @@
 
           <div class="col-span-1 md:col-span-1 flex flex-col h-full justify-start items-center md:items-start">
             <a 
-              href="https://maps.app.goo.gl/vWJXSwCKZorgrm6e7" 
+              href="https://share.google/xtn8DjG1kzj4t5vhM" 
               target="_blank" 
               rel="noopener noreferrer"
-              class="text-blue-600 hover:text-blue-800 text-xs mb-1 md:mb-2 text-left"
+              class="text-blue-600 hover:text-blue-800 text-xs mb-1 md:mb-2 text-left hover:underline"
             >
-              Lihat peta lebih besar
+              {{ L.lihatRute }}
             </a>
             <div class="w-full max-w-[150px] md:max-w-xs h-24 md:h-28 rounded-md overflow-hidden border border-gray-300">
               <iframe 
@@ -55,6 +74,7 @@
                 allowfullscreen="" 
                 loading="lazy" 
                 referrerpolicy="no-referrer-when-downgrade"
+                title="Lokasi Anugerah Auto Sunter"
               ></iframe>
             </div>
           </div>
@@ -87,7 +107,7 @@ const labels = {
     schedule: 'Senin - Jumat: 08.00 - 17.30 WIB',
     scheduleHelperMini: 'Sabtu: Hanya dengan Janji Temu (Booking)',
     locationTitle: 'Kesulitan Menemukan Lokasi Bengkel Kami?', 
-    lihatRute: 'LIHAT RUTE', 
+    lihatRute: 'Lihat Peta', 
     copyright: 'Anugerah Auto. All Rights Reserved'
   },
   en: {
@@ -95,7 +115,7 @@ const labels = {
     schedule: 'Mon - Fri: 08.00 - 17.30 WIB',
     scheduleHelperMini: 'Sat: By appointment only (Booking)',
     locationTitle: 'Need Help Finding Our Workshop?',
-    lihatRute: 'VIEW ROUTE',
+    lihatRute: 'View Map',
     copyright: 'Anugerah Auto. All Rights Reserved'
   }
 }
@@ -123,4 +143,12 @@ defineExpose({
 /* Pastikan warna-warna ini sesuai dengan variabel tema Anda */
 .bg-brand-blue { background-color: #214791; }
 .bg-brand-red { background-color: #EC2529; }
+
+/* Style untuk link */
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
 </style>

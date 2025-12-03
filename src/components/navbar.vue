@@ -3,14 +3,20 @@
 
     <div class="bg-brand-blue text-white py-1 px-4 border-b border-white/10">
       <div class="max-w-7xl mx-auto flex justify-between items-center text-xs md:text-sm">
+        <!-- Alamat dengan link Google Maps -->
         <div class="flex items-center gap-2">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
             <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
           </svg>
-          <span class="text-white opacity-90">
+          <a 
+            href="https://share.google/xtn8DjG1kzj4t5vhM" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="text-white opacity-90 hover:underline hover:opacity-100 transition-opacity"
+          >
             Jl. Danau Sunter Barat Blok A4 No. 2, Jakarta Utara, DKI Jakarta 14350
-          </span>
+          </a>
         </div>
 
         <div class="flex items-center gap-2">
@@ -54,6 +60,7 @@
             </div>
           </div>
 
+          <!-- Nomor Telepon dengan link WhatsApp -->
           <div class="hidden lg:flex flex-col items-start justify-center">
             <div class="flex items-center gap-2 mb-1"> 
               <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brand-blue flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -61,7 +68,13 @@
               </svg>
               <span class="text-sm text-gray-600">{{ L.phoneLabel }}</span>
             </div>
-            <p class="font-bold text-2xl text-brand-blue">0851-8605-4378</p> 
+            <a 
+              href="https://wa.me/6285186054378" 
+              target="_blank" 
+              class="font-bold text-2xl text-brand-blue hover:text-blue-700 transition-colors"
+            >
+              0851-8605-4378
+            </a>
           </div>
 
           <div class="hidden lg:flex items-center gap-3 justify-start">
@@ -74,10 +87,15 @@
             </div>
           </div>
 
+          <!-- Tombol Book Appointment dengan link WhatsApp -->
           <div class="flex justify-end col-span-2 lg:col-span-1">
-            <button class="bg-brand-red hover:opacity-90 text-white px-4 py-2 rounded-lg font-semibold transition-colors lg:block hidden">
+            <a 
+              href="https://wa.me/6285186054378" 
+              target="_blank"
+              class="bg-brand-red hover:opacity-90 text-white px-4 py-2 rounded-lg font-semibold transition-colors lg:block hidden no-underline hover:bg-red-700"
+            >
               {{ L.book }}
-            </button>
+            </a>
           </div>
         </div>
       </div>
@@ -109,9 +127,15 @@
           {{ L.contact }}
         </button>
       </nav>
-      <button class="w-full bg-brand-red hover:bg-red-700 text-white px-4 py-2 rounded-b-lg font-semibold transition-colors" @click="closeMobileMenu">
+      <!-- Tombol Book Appointment mobile dengan link WhatsApp -->
+      <a 
+        href="https://wa.me/6285186054378" 
+        target="_blank"
+        class="w-full bg-brand-red hover:bg-red-700 text-white px-4 py-2 rounded-b-lg font-semibold transition-colors text-center block no-underline"
+        @click="closeMobileMenu"
+      >
         {{ L.book }}
-      </button>
+      </a>
     </div>
   </div>
 </template>
@@ -183,6 +207,15 @@ const scrollToFooter = () => {
 <style scoped>
 .bg-brand-blue { background-color: #214791; }
 .bg-brand-red { background-color: #EC2529; }
+
+/* Style untuk link */
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+
 @media (max-width: 640px) {
   .max-w-7xl {
     padding-left: 0.5rem;
