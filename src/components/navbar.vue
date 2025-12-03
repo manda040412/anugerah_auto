@@ -89,6 +89,7 @@
           <a href="#beranda" class="text-gray-700 hover:text-brand-blue font-semibold transition-colors">{{ L.home }}</a>
           <a href="#tentang" class="text-gray-700 hover:text-brand-blue font-semibold transition-colors">{{ L.about }}</a>
           <a href="#layanan" class="text-gray-700 hover:text-brand-blue font-semibold transition-colors">{{ L.services }}</a>
+          <a href="#promo" class="text-gray-700 hover:text-brand-blue font-semibold transition-colors">{{ L.promo }}</a>
           <a href="#artikel" class="text-gray-700 hover:text-brand-blue font-semibold transition-colors">{{ L.articles }}</a>
           <button @click="scrollToFooter" class="text-gray-700 hover:text-brand-blue font-semibold transition-colors">
             {{ L.contact }}
@@ -102,6 +103,7 @@
         <a href="#beranda" class="py-2 text-gray-700 hover:text-brand-blue font-medium" @click="closeMobileMenu">{{ L.home }}</a>
         <a href="#tentang" class="py-2 text-gray-700 hover:text-brand-blue font-medium" @click="closeMobileMenu">{{ L.about }}</a>
         <a href="#layanan" class="py-2 text-gray-700 hover:text-brand-blue font-medium" @click="closeMobileMenu">{{ L.services }}</a>
+        <a href="#promo" class="py-2 text-gray-700 hover:text-brand-blue font-medium" @click="closeMobileMenu">{{ L.promo }}</a>
         <a href="#artikel" class="py-2 text-gray-700 hover:text-brand-blue font-medium" @click="closeMobileMenu">{{ L.articles }}</a>
         <button @click="scrollToFooter" class="py-2 text-gray-700 hover:text-brand-blue font-medium text-left w-full">
           {{ L.contact }}
@@ -134,6 +136,7 @@ const labels = {
     home: 'Beranda',
     about: 'Tentang Kami',
     services: 'Layanan',
+    promo: 'Promo',
     articles: 'Artikel & Tips',
     contact: 'Kontak Kami',
     book: 'Book Appointment',
@@ -145,6 +148,7 @@ const labels = {
     home: 'Home',
     about: 'About Us',
     services: 'Services',
+    promo: 'Promotions',
     articles: 'Articles & Tips',
     contact: 'Contact Us',
     book: 'Book Appointment',

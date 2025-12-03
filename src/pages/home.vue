@@ -1,15 +1,12 @@
 <template>
   <div class="w-full bg-white">
-
     <Carousel />
 
-      <div class="absolute bottom-0 w-full z-0 mb-4 hidden sm:block">
-        <div class="max-w-7xl mx-auto px-4">
-          <FasilitasOverlay :locale="props.locale" />
-        </div>
+    <div class="absolute bottom-0 w-full z-0 mb-4 hidden sm:block">
+      <div class="max-w-7xl mx-auto px-4">
+        <FasilitasOverlay :locale="props.locale" />
       </div>
     </div>
-
 
     <section id="tentang" class="py-16 bg-white">
       <div class="max-w-7xl mx-auto px-4">
@@ -38,11 +35,11 @@
           </div>
 
           <div class="w-full max-w-md h-48 flex items-center justify-center mx-auto mb-4">
-             <img src="../assets/anugerah_auto.JPG" alt="Image 2" class="w-full h-full object-cover rounded-lg" />
+              <img src="../assets/anugerah_auto.JPG" alt="Image 2" class="w-full h-full object-cover rounded-lg" />
           </div>
 
           <div class="w-full max-w-xs h-48 flex items-center justify-center mx-auto mb-4">
-             <img src="../assets/pengecekkan_anugerah_auto.JPG" alt="Image 3" class="w-full h-full object-cover rounded-lg" />
+              <img src="../assets/pengecekkan_anugerah_auto.JPG" alt="Image 3" class="w-full h-full object-cover rounded-lg" />
           </div>
         </div>
         
@@ -67,7 +64,7 @@
             </div>
           </div>
         </div>
-        </div>
+      </div>
     </section>
 
     <section id="layanan" class="py-16 bg-gray-50">
@@ -112,7 +109,174 @@
             <p class="text-lg font-semibold text-gray-700 mb-4">{{ L.corporateSubtitle }}</p>
             <p class="text-gray-600 mb-6 max-w-3xl mx-auto">{{ L.corporateDesc }}</p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="promo" class="py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-12">
+          <span class="text-sm font-semibold uppercase tracking-wide" :style="{ color: '#EC2529' }">
+            {{ L.promoCategory }}
+          </span>
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-2 mb-4">
+            {{ L.promoTitle }}
+          </h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            {{ L.promoSubtitle }}
+          </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div 
+            v-for="promo in promos" 
+            :key="promo.id"
+            @click="openPromoModal(promo)"
+            class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer group"
+          >
+            <!-- Badge Promo -->
+            <div class="relative">
+              <div class="absolute top-4 left-4 z-10">
+                <span class="px-3 py-1 text-xs font-bold text-white rounded-full" 
+                      :style="{ backgroundColor: getPromoBadgeColor(promo.type) }">
+                  {{ getPromoTypeLabel(promo.type) }}
+                </span>
+              </div>
+              
+              <!-- Gambar Promo -->
+              <div class="h-48 overflow-hidden">
+                <img 
+                  :src="getPromoImage(promo.image)" 
+                  :alt="promo.title"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+            </div>
+
+            <!-- Konten Promo -->
+            <div class="p-6">
+              <div class="flex justify-between items-start mb-3">
+                <h3 class="text-xl font-bold text-gray-900">{{ promo.title }}</h3>
+                <span class="text-2xl font-bold" :style="{ color: '#EC2529' }">
+                  {{ promo.discount }}
+                </span>
+              </div>
+              
+              <p class="text-gray-600 text-sm mb-4 line-clamp-2">
+                {{ promo.shortDescription }}
+              </p>
+              
+              <div class="flex items-center justify-between">
+                <div class="text-sm text-gray-500">
+                  <span class="line-through mr-2">{{ promo.originalPrice }}</span>
+                  <span class="font-bold text-gray-900">{{ promo.discountedPrice }}</span>
+                </div>
+                
+                <button class="px-4 py-2 text-sm font-medium rounded-lg transition-colors"
+                        :style="{ 
+                          backgroundColor: '#214791', 
+                          color: 'white'
+                        }"
+                        @click.stop="openPromoModal(promo)">
+                  {{ L.promoButton }}
+                </button>
+              </div>
+              
+              <!-- Masa Berlaku -->
+              <div class="mt-4 pt-4 border-t border-gray-100">
+                <div class="flex items-center text-xs text-gray-500">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                  </svg>
+                  <span>{{ L.promoValid }}: {{ promo.validUntil }}</span>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
+
+        <!-- Tombol Lihat Semua Promo -->
+        <div class="text-center mt-12">
+          <button class="px-8 py-3 text-white font-medium rounded-lg hover:opacity-90 transition-opacity"
+                  :style="{ backgroundColor: '#EC2529' }"
+                  @click="showAllPromos">
+            {{ L.promoSeeAll }}
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="testimoni" class="py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4 text-center">
+        
+        <span class="text-sm font-semibold uppercase tracking-wide" :style="{ color: '#EC2529' }">
+          {{ L.testimonyCategory }}
+        </span>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-12">
+          {{ L.testimonyTitle }}
+        </h2>
+
+        <!-- Container untuk auto-scroll dengan hover pause -->
+        <div
+          ref="scrollContainer"
+          @mouseenter="pauseAutoScroll"
+          @mouseleave="startAutoScroll"
+          class="overflow-x-auto md:overflow-hidden pb-4 md:pb-0 hide-scrollbar"
+          style="scroll-behavior: smooth;"
+        >
+          
+          <div class="flex gap-6 w-fit md:w-full">
+            
+            <a 
+              v-for="(testi, index) in allTestimonials" 
+              :key="index" 
+              :href="L.googleReviewLink" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="snap-center flex-shrink-0 w-[85vw] sm:w-[50vw] lg:w-[calc(33.333%-12px)] bg-white rounded-xl shadow-xl p-6 text-left border border-gray-100 relative cursor-pointer hover:shadow-2xl transition-shadow transform hover:scale-[1.01]"
+            >
+              
+              <span class="absolute top-4 right-4 text-6xl font-serif leading-none text-blue-300 opacity-50" style="color: '#214791';">"</span>
+
+              <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-gray-300 rounded-full mr-3 flex items-center justify-center overflow-hidden">
+                    <img v-if="testi.image" 
+                         :src="getAvatarContent(testi.image)" 
+                         :alt="testi.name" 
+                         class="w-full h-full object-cover" 
+                    />
+                    <span v-else class="text-white font-bold text-xl">{{ getAvatarContent(testi.name) }}</span>
+                </div>
+                <div>
+                  <p class="font-bold text-gray-900">{{ testi.name }}</p>
+                  <p class="text-sm text-gray-600">Review Google</p>
+                </div>
+              </div>
+
+              <p class="text-gray-700 text-sm leading-relaxed pr-6 whitespace-pre-line">
+                {{ testi.isi }}
+              </p>
+
+            </a>
+            
+          </div>
+        </div>
+        
+        <!-- Dot indicator untuk navigasi - MAKSIMAL 4 DOT -->
+        <div class="flex justify-center mt-8 space-x-2">
+          <button
+            v-for="(_, index) in visibleTestimonialGroups"
+            :key="index"
+            @click="scrollToIndex(index)"
+            class="w-3 h-3 rounded-full transition-all duration-300 focus:outline-none"
+            :class="{
+              'bg-brand-red scale-125': currentGroupIndex === index,
+              'bg-gray-300 hover:bg-gray-400': currentGroupIndex !== index
+            }"
+            :aria-label="`Go to testimonial group ${index + 1}`"
+          ></button>
+        </div>
+        
       </div>
     </section>
 
@@ -127,6 +291,7 @@
         <BrandCarousel :locale="props.locale" />
       </div>
     </section>
+    
     <div class="w-full bg-[#2952A3] md:relative md:z-20 border-t border-gray-300"> 
       <div class="max-w-7xl mx-auto px-4">
         <div class="flex flex-col md:flex-row items-center justify-between py-3 md:py-4 text-white pointer-events-auto">
@@ -138,7 +303,8 @@
           
           <div class="flex-shrink-0 flex items-center justify-center mt-2 md:mt-0">
             <a 
-              :href="'tel:' + L.ctaPhone.replace(/-/g, '')"
+              :href="'https://wa.me/6285186054378'" 
+              target="_blank"
               class="flex items-center gap-1.5 bg-white rounded-full px-5 py-2 shadow-lg hover:shadow-xl transition-shadow" 
               style="min-width:140px;"
             >
@@ -154,6 +320,7 @@
         </div>
       </div>
     </div>
+
     <section id="artikel" class="py-16 bg-white">
       <div>
         <BlogList />
@@ -166,16 +333,189 @@
         <div class="absolute inset-0" style="z-index:2; background: linear-gradient(180deg, rgba(33,71,145,0.6) 0%, rgba(33,71,145,0.2) 60%, transparent 100%);"></div>
         <div class="flex flex-col items-center justify-center h-[400px] relative z-10">
           <h2 class="text-2xl md:text-3xl font-bold text-white text-center mb-6 mt-8">{{ L.bookingTitle }}</h2>
-          <button class="px-6 py-2 rounded-lg font-bold text-[#214791] text-sm border-2 border-[#214791] bg-white hover:bg-[#214791] hover:text-white transition-colors">
+          <a href="https://wa.me/6285186054378" target="_blank" class="px-6 py-2 rounded-lg font-bold text-[#214791] text-sm border-2 border-[#214791] bg-white hover:bg-[#214791] hover:text-white transition-colors">
             {{ L.bookingButton }}
-          </button>
+          </a>
         </div>
       </div>
     </section>
+
+    <!-- MODAL PROMO -->
+    <div v-if="isPromoModalOpen" 
+      @click.self="closePromoModal" 
+      class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black bg-opacity-70 transition-opacity duration-300">
+      
+      <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl mx-auto transform transition-all duration-300 scale-100 max-h-[90vh] overflow-hidden flex flex-col">
+        
+        <!-- Header Modal - Compact -->
+        <div class="p-4 border-b border-gray-200 flex justify-between items-center sticky top-0 bg-white z-10">
+          <div class="flex items-center gap-3">
+            <span class="px-3 py-1 text-xs font-bold text-white rounded-full shrink-0"
+                  :style="{ backgroundColor: getPromoBadgeColor(selectedPromo?.type) }">
+              {{ getPromoTypeLabel(selectedPromo?.type) }}
+            </span>
+            <h3 class="text-xl font-bold text-gray-900 truncate">{{ selectedPromo?.title }}</h3>
+          </div>
+          <button @click="closePromoModal" 
+                  class="text-gray-400 hover:text-gray-600 transition-colors rounded-full p-1">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Content Modal - Scrollable -->
+        <div class="flex-1 overflow-y-auto p-6">
+          <!-- Gambar Promo -->
+          <div class="mb-6">
+            <div class="h-48 md:h-56 rounded-lg overflow-hidden mb-4">
+              <img 
+                :src="getPromoImage(selectedPromo?.image)" 
+                :alt="selectedPromo?.title"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            
+            <!-- Harga Box -->
+            <div class="bg-gray-50 rounded-lg p-4 mb-6">
+              <div class="flex items-center justify-between mb-2">
+                <div>
+                  <div class="text-sm text-gray-600">{{ L.promoOriginalPrice }}</div>
+                  <div class="text-lg line-through text-gray-500">{{ selectedPromo?.originalPrice }}</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-3xl font-bold" :style="{ color: '#EC2529' }">
+                    {{ selectedPromo?.discountedPrice }}
+                  </div>
+                  <div class="text-xs text-gray-600 mt-1">{{ L.promoDiscountedPrice }}</div>
+                </div>
+                <div class="text-right">
+                  <div class="px-3 py-1 rounded-full text-white text-sm font-bold inline-block"
+                       :style="{ backgroundColor: '#EC2529' }">
+                    {{ selectedPromo?.discount }} OFF
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Detail Promo - Single Column -->
+          <div>
+            <!-- Deskripsi -->
+            <div class="mb-6">
+              <h4 class="text-lg font-bold text-gray-900 mb-3">{{ L.promoDetails }}</h4>
+              <p class="text-gray-700 text-sm leading-relaxed">{{ selectedPromo?.fullDescription }}</p>
+            </div>
+
+            <!-- What's Included -->
+            <div class="mb-6">
+              <h5 class="font-bold text-gray-900 mb-2 flex items-center">
+                <svg class="w-5 h-5 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                {{ L.promoIncludes }}
+              </h5>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <div v-for="(item, index) in selectedPromo?.includes" :key="index" 
+                     class="flex items-start">
+                  <svg class="w-4 h-4 text-green-500 mt-0.5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span class="text-sm text-gray-700">{{ item }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Terms & Conditions -->
+            <div class="mb-6">
+              <h5 class="font-bold text-gray-900 mb-2 flex items-center">
+                <svg class="w-5 h-5 mr-2 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                </svg>
+                {{ L.promoTerms }}
+              </h5>
+              <ul class="space-y-2">
+                <li v-for="(term, index) in selectedPromo?.terms" :key="index" 
+                    class="flex items-start">
+                  <svg class="w-4 h-4 text-amber-500 mt-0.5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  <span class="text-sm text-gray-700">{{ term }}</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Info Tambahan -->
+            <div class="bg-gray-50 rounded-lg p-4 mb-6">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="flex items-center">
+                  <div class="w-10 h-10 rounded-full flex items-center justify-center mr-3"
+                       :style="{ backgroundColor: '#E8F0FB' }">
+                    <svg class="w-5 h-5" :style="{ color: '#214791' }" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="text-xs text-gray-500">{{ L.promoValid }}</div>
+                    <div class="font-bold text-gray-900">{{ selectedPromo?.validUntil }}</div>
+                  </div>
+                </div>
+                
+                <div class="flex items-center">
+                  <div class="w-10 h-10 rounded-full flex items-center justify-center mr-3"
+                       :style="{ backgroundColor: '#E8F0FB' }">
+                    <svg class="w-5 h-5" :style="{ color: '#214791' }" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="text-xs text-gray-500">{{ L.promoDuration }}</div>
+                    <div class="font-bold text-gray-900">{{ selectedPromo?.serviceDuration }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons - Fixed at Bottom -->
+        <div class="p-6 border-t border-gray-200 bg-white sticky bottom-0">
+          <div class="flex flex-col sm:flex-row gap-3">
+            <!-- Tombol Booking via WhatsApp -->
+            <a 
+              :href="getWhatsAppLink(selectedPromo)"
+              target="_blank"
+              class="flex-1 px-6 py-3 text-white font-bold rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center order-2 sm:order-1 no-underline"
+              :style="{ backgroundColor: '#EC2529' }">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+              </svg>
+              {{ L.promoBookNow }}
+            </a>
+            
+            <button 
+              @click="sharePromo(selectedPromo)"
+              class="flex-1 px-6 py-3 font-bold rounded-lg border transition-colors flex items-center justify-center order-1 sm:order-2"
+              :style="{ 
+                borderColor: '#214791',
+                color: '#214791'
+              }"
+              :class="{
+                'hover:bg-blue-50': true
+              }">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path>
+              </svg>
+              {{ L.promoShare }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     
     <div v-if="isModalOpen" 
-         @click.self="closeModal" 
-         class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-70 transition-opacity duration-300">
+      @click.self="closeModal" 
+      class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-70 transition-opacity duration-300">
       
       <div class="bg-white rounded-xl shadow-2xl max-w-lg w-full mx-auto transform transition-all duration-300 scale-100 p-8 relative">
         
@@ -185,7 +525,7 @@
         </button>
 
         <div class="text-center mb-6">
-          <div class="w-20 h-20 mx-auto mb-4 rounded-full flex items-center justify-center bg-brand-red p-4">
+          <div class="w-20 h-20 mx-auto mb-4 rounded-full flex items-center justify-center bg-red-600 p-4">
             <img 
                 :src="modalContent.icon" 
                 :alt="modalContent.title + ' icon'" 
@@ -195,19 +535,392 @@
           <h3 class="text-2xl font-bold text-gray-900">{{ modalContent.title }}</h3>
         </div>
 
-        <div class="text-gray-700 text-justify">
+        <div class="text-gray-700 text-justify mb-8">
           <p>{{ modalContent.description }}</p>
+        </div>
+
+        <div class="text-center">
+          <a href="https://tranugerah.com/product/" 
+             target="_blank" 
+             class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg shadow-sm text-white bg-red-600 hover:bg-red-700 transition-colors duration-200">
+            Info Selengkapnya 
+            <svg class="ml-2 -mr-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+          </a>
         </div>
       </div>
     </div>
-    </template>
+  </div>
+</template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, ref, onMounted, onBeforeUnmount } from 'vue';
 import FasilitasOverlay from '../components/FasilitasOverlay.vue'
 import Carousel from '../components/carousel.vue'
 import BlogList from '../components/BlogList.vue'
 import BrandCarousel from '../components/BrandCarousel.vue'
+
+// --- START: PROMO DATA ---
+const promos = ref([
+  {
+    id: 1,
+    type: 'package',
+    title: 'Gratis Pengecekan 30 Titik / Free 30-Point Inspection',
+    discount: '',
+    originalPrice: '',
+    discountedPrice: 'Gratis',
+    image: 'promo1.jpg',
+    shortDescription: 'Paket lengkap service berkala termasuk ganti oli mesin, filter, dan pengecekan kaki-kaki serta rem hingga 30 titik.',
+    fullDescription: 'Dapatkan paket service berkala lengkap dengan diskon 40%! Paket ini termasuk penggantian oli mesin premium, filter oli, serta gratis pengecekan kaki-kaki dan sistem rem hingga 30 titik. Juga mencakup pemeriksaan suspensi, baterai, dan laporan kondisi kendaraan Anda. Cocok untuk mobil yang telah mencapai 10.000 km atau 6 bulan pemakaian.',
+    includes: [
+      'Ganti oli mesin premium',
+      'Ganti filter oli',
+      'Gratis pengecekan kaki-kaki dan rem hingga 30 titik',
+      'Inspeksi suspensi',
+      'Cek kondisi baterai',
+      'Laporan kondisi kendaraan'
+    ],
+    terms: [
+      'Promo berlaku untuk semua merek mobil',
+      'Hanya berlaku di cabang Anugerah Auto Sunter',
+      'Harus melakukan booking terlebih dahulu',
+      'Tidak dapat digabungkan dengan promo lain',
+      'Masa berlaku promo hingga 31 Desember 2025'
+    ],
+    validUntil: '31 Des 2025',
+    serviceDuration: '2-3 jam'
+  },
+  {
+    id: 2,
+    type: 'package',
+    title: 'Paket Shock Absorber Lengkap',
+    discount: '35%',
+    originalPrice: 'Rp 3.500.000',
+    discountedPrice: 'Rp 2.275.000',
+    image: 'promo2.jpg',
+    shortDescription: 'Penggantian shock absorber depan dan belakang dengan produk berkualitas.',
+    fullDescription: 'Ganti shock absorber Anda dengan paket lengkap! Dapatkan shock absorber berkualitas tinggi untuk depan dan belakang dengan diskon spesial 35%. Paket termasuk penggantian, spooring, dan balancing untuk kenyamanan berkendara maksimal.',
+    includes: [
+      'Shock absorber depan (2 pcs)',
+      'Shock absorber belakang (2 pcs)',
+      'Spooring 3D alignment',
+      'Wheel balancing',
+      'Pengecekan sistem suspensi',
+      'Garansi 1 tahun'
+    ],
+    terms: [
+      'Promo berlaku untuk mobil penumpang',
+      'Produk sesuai stok yang tersedia',
+      'Termasuk jasa pemasangan',
+      'Free pengecekan setelah pemasangan',
+      'Masa berlaku promo hingga 30 November 2025'
+    ],
+    validUntil: '30 Nov 2025',
+    serviceDuration: '4-5 jam'
+  },
+  {
+    id: 3,
+    type: 'new_customer',
+    title: 'New Customer Special',
+    discount: '50%',
+    originalPrice: 'Rp 800.000',
+    discountedPrice: 'Rp 400.000',
+    image: 'promo3.jpg',
+    shortDescription: 'Diskon spesial 50% untuk pelanggan baru pertama kali service.',
+    fullDescription: 'Selamat datang di Anugerah Auto! Khusus pelanggan baru, dapatkan diskon 50% untuk paket servis pertama. Paket ini meliputi pemeriksaan keseluruhan kendaraan dan pengecekan sistem vital untuk memastikan kendaraan Anda dalam kondisi prima.',
+    includes: [
+      'Pemeriksaan sistem rem',
+      'Cek tekanan ban dan kondisi',
+      'Inspeksi sistem kelistrikan',
+      'Pengecekan cairan mobil',
+      'Konsultasi gratis dengan mekanik',
+      'Free minuman di ruang tunggu'
+    ],
+    terms: [
+      'Khusus pelanggan baru pertama kali',
+      'Wajib mendaftar sebagai member',
+      'Satu mobil per pelanggan',
+      'Tidak termasuk penggantian sparepart',
+      'Booking minimal 1 hari sebelumnya'
+    ],
+    validUntil: '31 Jan 2026',
+    serviceDuration: '1-2 jam'
+  }
+]);
+
+const selectedPromo = ref(null);
+const isPromoModalOpen = ref(false);
+
+const openPromoModal = (promo) => {
+  selectedPromo.value = promo;
+  isPromoModalOpen.value = true;
+  document.body.style.overflow = 'hidden';
+};
+
+const closePromoModal = () => {
+  isPromoModalOpen.value = false;
+  selectedPromo.value = null;
+  document.body.style.overflow = '';
+};
+
+const getPromoImage = (imageName) => {
+  if (!imageName) return '';
+  return new URL(`../assets/promo/${imageName}`, import.meta.url).href;
+};
+
+const getPromoBadgeColor = (type) => {
+  const colors = {
+    discount: '#EC2529', // Merah
+    package: '#214791', // Biru
+    new_customer: '#10B981', // Hijau
+    seasonal: '#F59E0B', // Kuning
+    member: '#8B5CF6', // Ungu
+    emergency: '#EF4444' // Merah terang
+  };
+  return colors[type] || '#6B7280';
+};
+
+const getPromoTypeLabel = (type) => {
+  const labels = {
+    discount: 'DISKON',
+    package: 'PAKET',
+    new_customer: 'PELANGGAN BARU',
+    seasonal: 'MUSIMAN',
+    member: 'MEMBER',
+    emergency: 'DARURAT'
+  };
+  return labels[type] || 'PROMO';
+};
+
+// Fungsi untuk mendapatkan link WhatsApp
+const getWhatsAppLink = (promo) => {
+  const phoneNumber = '6285186054378';
+  return `https://wa.me/${phoneNumber}`; // Tanpa pesan template
+};
+
+const sharePromo = (promo) => {
+  if (navigator.share) {
+    navigator.share({
+      title: promo.title,
+      text: `Dapatkan promo ${promo.discount} untuk ${promo.title} di Anugerah Auto! Hanya ${promo.discountedPrice}`,
+      url: window.location.href
+    });
+  } else {
+    const shareText = `🎉 *PROMO ANUGERAH AUTO* 🎉\n\n*${promo.title}*\n${promo.shortDescription}\n\n💵 *Harga Normal:* ${promo.originalPrice || 'Tidak ada'}\n🔥 *Harga Promo:* ${promo.discountedPrice}\n📅 *Berlaku hingga:* ${promo.validUntil}\n⏱️ *Durasi:* ${promo.serviceDuration}\n\n📍 Anugerah Auto Sunter\n📞 0851-8605-4378\n\n*Booking via WhatsApp:* ${getWhatsAppLink(promo)}`;
+    navigator.clipboard.writeText(shareText);
+    alert('Detail promo telah disalin ke clipboard!\nAnda bisa share melalui WhatsApp secara manual.');
+  }
+};
+
+const showAllPromos = () => {
+  document.getElementById('promo')?.scrollIntoView({ behavior: 'smooth' });
+};
+// --- END: PROMO DATA ---
+
+// --- START: Auto Scroll Logic ---
+const scrollContainer = ref(null)
+const scrollSpeed = 4000 // ubah kecepatan dalam milidetik (4000 = 4 detik)
+const currentGroupIndex = ref(0)
+let autoScrollInterval
+
+// Jumlah testimoni per group berdasarkan breakpoint
+const getItemsPerView = () => {
+  if (!scrollContainer.value) return 1
+  
+  const containerWidth = scrollContainer.value.clientWidth
+  
+  if (containerWidth < 640) { // mobile: < 640px
+    return 1
+  } else if (containerWidth < 1024) { // tablet: 640px - 1024px
+    return 2
+  } else { // desktop: > 1024px
+    return 3
+  }
+}
+
+// Hitung berapa group testimoni yang ada (MAKSIMAL 4 GROUP)
+const visibleTestimonialGroups = computed(() => {
+  if (!scrollContainer.value || allTestimonials.value.length === 0) return []
+  
+  const itemsPerView = getItemsPerView()
+  const totalItems = allTestimonials.value.length
+  const totalGroups = Math.ceil(totalItems / itemsPerView)
+  
+  // MAKSIMAL 4 GROUP untuk carousel yang rapi
+  const maxGroups = 4
+  const actualGroups = Math.min(totalGroups, maxGroups)
+  
+  return Array.from({ length: actualGroups })
+})
+
+// Hitung posisi scroll untuk group tertentu
+const calculateScrollPosition = (groupIndex) => {
+  if (!scrollContainer.value) return 0
+  
+  const container = scrollContainer.value
+  const itemsPerView = getItemsPerView()
+  
+  // Lebar item berdasarkan breakpoint
+  let itemWidth
+  if (itemsPerView === 1) { // mobile
+    itemWidth = container.clientWidth * 0.85 // w-[85vw]
+  } else if (itemsPerView === 2) { // tablet
+    itemWidth = container.clientWidth * 0.5 // w-[50vw]
+  } else { // desktop
+    itemWidth = container.clientWidth * 0.333 // w-[calc(33.333%-12px)]
+  }
+  
+  // Hitung gap (12px = 0.75rem)
+  const gap = 12
+  
+  // Hitung scroll position untuk group ini
+  return groupIndex * (itemWidth * itemsPerView + gap * (itemsPerView - 1))
+}
+
+const startAutoScroll = () => {
+  if (!scrollContainer.value) return
+  
+  const container = scrollContainer.value
+  
+  autoScrollInterval = setInterval(() => {
+    if (!container) return
+    
+    const totalGroups = visibleTestimonialGroups.value.length
+    
+    // Pindah ke group berikutnya
+    const nextGroupIndex = (currentGroupIndex.value + 1) % totalGroups
+    currentGroupIndex.value = nextGroupIndex
+    
+    const scrollPosition = calculateScrollPosition(nextGroupIndex)
+    
+    container.scrollTo({
+      left: scrollPosition,
+      behavior: "smooth",
+    })
+    
+  }, scrollSpeed)
+}
+
+const pauseAutoScroll = () => {
+  clearInterval(autoScrollInterval)
+}
+
+const scrollToIndex = (groupIndex) => {
+  if (!scrollContainer.value) return
+  
+  currentGroupIndex.value = groupIndex
+  const scrollPosition = calculateScrollPosition(groupIndex)
+  
+  scrollContainer.value.scrollTo({
+    left: scrollPosition,
+    behavior: "smooth",
+  })
+  
+  // Reset interval setelah klik manual
+  clearInterval(autoScrollInterval)
+  startAutoScroll()
+}
+
+// Update current index saat user scroll manual
+const updateCurrentIndex = () => {
+  if (!scrollContainer.value) return
+  
+  const container = scrollContainer.value
+  const scrollLeft = container.scrollLeft
+  const itemsPerView = getItemsPerView()
+  
+  // Lebar item berdasarkan breakpoint
+  let itemWidth
+  if (itemsPerView === 1) { // mobile
+    itemWidth = container.clientWidth * 0.85
+  } else if (itemsPerView === 2) { // tablet
+    itemWidth = container.clientWidth * 0.5
+  } else { // desktop
+    itemWidth = container.clientWidth * 0.333
+  }
+  
+  const gap = 12
+  const groupWidth = itemWidth * itemsPerView + gap * (itemsPerView - 1)
+  
+  // Hitung group index berdasarkan posisi scroll
+  const groupIndex = Math.round(scrollLeft / groupWidth)
+  const totalGroups = visibleTestimonialGroups.value.length
+  
+  currentGroupIndex.value = Math.min(groupIndex, totalGroups - 1)
+}
+
+onMounted(() => {
+  // Tunggu sedikit untuk memastikan DOM sudah siap
+  setTimeout(() => {
+    startAutoScroll()
+    
+    // Tambahkan event listener untuk update index saat scroll manual
+    if (scrollContainer.value) {
+      scrollContainer.value.addEventListener('scroll', updateCurrentIndex)
+    }
+  }, 100)
+})
+
+onBeforeUnmount(() => {
+  clearInterval(autoScrollInterval)
+  
+  // Hapus event listener
+  if (scrollContainer.value) {
+    scrollContainer.value.removeEventListener('scroll', updateCurrentIndex)
+  }
+})
+// --- END: Auto Scroll Logic ---
+
+// --- START: DATA TESTIMONI LENGKAP ---
+
+const allTestimonials = ref([
+    {
+        image: 'suyatno.png',
+        name: 'Suyatno Budijanto',
+        isi: 'Ganti oli & saringan AC, tgl 6 september 2025,\nService bengkel ok dan layanan staf ok, ruang tunggu ok, harga sparepart juga fair.\nRekomendasi utk kembali.',
+    },
+    {
+        image: null,
+        name: 'Hendra Wijaya',
+        isi: 'Sparepart berkualitas. Pelayanan bagus. Di kerjakan secara profesional. Menggunakan peralatan² kerja yg modern.',
+    },
+    {
+        image: null,
+        name: 'Denny Hartanto',
+        isi: 'Pelayanan sangat baik, keamanan terjamin, proses servis dijelaskan dengan baik dan detil, kemudian diberikan kesempatan untuk test drive terlebih dahulu untuk memastikan proses servis berhasil dan baik. Ruang tunggu juga nyaman, bisa memantau kendaraan dari dalam, Teknisi juga mengerjakan tugas dengan profesional. Overall 10/10.',
+    },
+    {
+        image: 'Jovie.png',
+        name: 'Jovie L S',
+        isi: 'Workshop yg bagus...\nPeralatan nya serba baru..\nService nya ok..\nKaryawan nya ramah...\nTempatnya cozy places',
+    },
+    {
+        image: 'younger.png',
+        name: 'Younger Novandy',
+        isi: 'Pelayanan terbaik, tempatnya bersih, mekanik profesional 👍🏻',
+    },
+    {
+        image: 'and.png',
+        name: 'And_ Chandra',
+        isi: 'Penjelasan - Detail\nPelayanan - Oke\nPeralatan - Lengkap\nPengerjaan - Rapi',
+    },
+    {
+        image: 'nabil.png',
+        name: 'Nabil 88',
+        isi: 'Bengkel Recommended dengan Suasana yg Hommy bgt ...\n\nPelayanan cepat dan tanggap.\nTentunya dgn Harga yang Murah & Berkualitas',
+    },
+    {
+        image: null,
+        name: 'Bradley Asher',
+        isi: 'Saya memiliki pengalaman yang luar biasa dengan perusahaan perbaikan mobil ini. Mereka sangat andal, timnya ramah dan profesional, dan harganya sangat terjangkau. Semuanya dijelaskan dengan jelas, dan mereka menyelesaikan pekerjaan dengan efisien. Saya sangat menghargai layanan jujur mereka dan pasti akan merekomendasikan mereka kepada siapa pun yang mencari perbaikan mobil tepercaya.',
+    },
+    {
+        image: null,
+        name: 'Ibing Suprapto',
+        isi: 'Jennifer sangat membantu perincian biaya perbaikan... hasil kerja mekanik cepat tapi teliti recommended untk spesialis kaki kaki mobil',
+    },
+]);
+
+// --- END: DATA TESTIMONI LENGKAP ---
 
 // --- START: Modal State & Functions ---
 const isModalOpen = ref(false);
@@ -280,6 +993,21 @@ const getHighlightIcon = (iconName) => {
   return new URL(`../assets/${fileName}`, import.meta.url).href; 
 };
 
+/**
+ * Helper untuk mendapatkan path gambar avatar atau inisial huruf.
+ * Catatan: Asumsi path untuk gambar testimonial adalah '../assets/testi/'.
+ */
+const getAvatarContent = (value) => {
+    if (value && value.includes('.png')) {
+        // Jika berupa nama file, kembalikan path asset
+        return new URL(`../assets/${value}`, import.meta.url).href; 
+    } else if (value) {
+        // Jika berupa nama, kembalikan inisial huruf pertama
+        return value.charAt(0).toUpperCase(); 
+    }
+    return '?'; // Fallback
+};
+
 // --- END: Helper Functions for Dynamic Assets ---
 
 const props = defineProps({
@@ -291,7 +1019,7 @@ const props = defineProps({
 });
 
 
-// --- START: Service Descriptions (Tambahkan data deskripsi layanan) ---
+// --- START: Service Descriptions ---
 const serviceDescriptions = {
   id: [
     { title: 'Suspensi', description: 'Suspensi merupakan sistem kaki-kaki vital yang berfungsi meredam getaran dan menjaga stabilitas kendaraan. Kami menyediakan layanan spooring 3D, balancing, dan perbaikan/penggantian komponen suspensi mobil Anda, mulai dari shock absorber, per, hingga bushing, untuk menjamin kenyamanan dan keamanan berkendara.' },
@@ -300,6 +1028,7 @@ const serviceDescriptions = {
     { title: 'Baterai', description: 'Baterai mobil adalah sumber daya utama. Kami menyediakan layanan pengecekan tegangan, pembersihan terminal, dan penggantian baterai baru dengan berbagai pilihan merek terpercaya, memastikan mobil Anda selalu siap dihidupkan.' },
     { title: 'Oli', description: 'Penggantian oli secara berkala sangat penting untuk kesehatan mesin. Kami menyediakan berbagai jenis oli mesin, oli transmisi, dan cairan lainnya sesuai spesifikasi pabrikan mobil Anda, lengkap dengan filter oli berkualitas.' },
     { title: 'Tune Up', description: 'Tune Up adalah perawatan berkala untuk mengembalikan performa mesin. Layanan ini meliputi pembersihan throttle body, pengecekan busi, filter udara, dan sistem injeksi, agar konsumsi bahan bakar lebih efisien dan tenaga kembali optimal.' },
+    
   ],
   en: [
     { title: 'Suspension', description: 'Suspension is a vital chassis system that functions to absorb vibrations and maintain vehicle stability. We provide 3D wheel alignment, balancing, and repair/replacement services for your car\'s suspension components, from shock absorbers and springs to bushings, to ensure driving comfort and safety.' },
@@ -377,6 +1106,31 @@ const labels = {
     highlight6Icon: 'tv', 
     highlight6Label: 'Live CCTV Monitoring', 
     highlight6Desc: 'Saksikan langsung proses pengerjaan mobil Anda melalui monitor yang tersedia di ruang tunggu.',
+    
+
+    // --- Labels Testimoni ---
+    testimonyCategory: 'Testimoni',
+    testimonyTitle: 'APA KATA PELANGGAN KAMI', 
+    
+    
+    // LINK REVIEW GOOGLE MAPS
+    googleReviewLink: 'https://www.google.com/search?sca_esv=d3b392c8b5f1cde4&rlz=1C1UEAD_enID1085ID1085&sxsrf=AE3TifMH0xFgezNaUyhL0UMaCXzvA2XNCQ:1764743707624&si=AMgyJEtREmoPL4P1I5IDCfuA8gybfVI2d5Uj7QMwYCZHKDZ-E0YZvXmWnLfPLcgIvvfT67fQsLH4Db28Zbi2C83ybj6OhQK_BueV-3alIlX9_onwVWSEBWOoRCaVJzEtqxNqdJDSPydfIRxmkPferCoQTVZ36pTeEBEJsjzd5ddWaxeo8ExDWGg%3D&q=Anugerah+Auto+Sunter:+Bengkel+kaki-kaki+%26+Rem+Reviews&sa=X&ved=2ahUKEwjv47_O5qCRAxVp7zgGHYpNGi8Q0bkNegQIIxAD&biw=1366&bih=641&dpr=1',
+
+    // --- Labels Promo Baru ---
+    promoCategory: 'Penawaran Spesial',
+    promoTitle: 'Promo & Paket Service',
+    promoSubtitle: 'Dapatkan penawaran terbaik untuk perawatan mobil Anda dengan berbagai promo menarik yang kami sediakan.',
+    promoButton: 'Lihat Detail',
+    promoValid: 'Berlaku hingga',
+    promoSeeAll: 'Lihat Semua Promo',
+    promoOriginalPrice: 'Harga Normal',
+    promoDiscountedPrice: 'Harga Promo',
+    promoDetails: 'Detail Promo',
+    promoIncludes: 'Apa yang termasuk',
+    promoTerms: 'Syarat & Ketentuan',
+    promoDuration: 'Durasi Service',
+    promoBookNow: 'Booking via WhatsApp',
+    promoShare: 'Bagikan Promo'
   },
   en: {
     country: 'Indonesia', 
@@ -439,6 +1193,28 @@ const labels = {
     highlight6Icon: 'tv', 
     highlight6Label: 'Live CCTV Monitoring', 
     highlight6Desc: 'Watch your car\'s service process live via the monitor available in the waiting room.',
+    
+    // --- Labels Testimoni ---
+    testimonyCategory: 'Testimonials',
+    testimonyTitle: 'WHAT OUR CLIENTS SAY',
+
+    googleReviewLink: 'https://www.google.com/search?sca_esv=d3b392c8b5f1cde4&rlz=1C1UEAD_enID1085ID1085&sxsrf=AE3TifMH0xFgezNaUyhL0UMaCXzvA2XNCQ:1764743707624&si=AMgyJEtREmoPL4P1I5IDCfuA8gybfVI2d5Uj7QMwYCZHKDZ-E0YZvXmWnLfPLcgIvvfT67fQsLH4Db28Zbi2C83ybj6OhQK_BueV-3alIlX9_onwVWSEBWOoRCaVJzEtqxNqdJDSPydfIRxmkPferCoQTVZ36pTeEBEJsjzd5ddWaxeo8ExDWGg%3D&q=Anugerah+Auto+Sunter:+Bengkel+kaki-kaki+%26+Rem+Reviews&sa=X&ved=2ahUKEwjv47_O5qCRAxVp7zgGHYpNGi8Q0bkNegQIIxAD&biw=1366&bih=641&dpr=1',
+
+    // --- New Promo Labels ---
+    promoCategory: 'Special Offers',
+    promoTitle: 'Promo & Service Packages',
+    promoSubtitle: 'Get the best offers for your car maintenance with various attractive promotions we provide.',
+    promoButton: 'View Details',
+    promoValid: 'Valid until',
+    promoSeeAll: 'View All Promos',
+    promoOriginalPrice: 'Original Price',
+    promoDiscountedPrice: 'Promo Price',
+    promoDetails: 'Promo Details',
+    promoIncludes: 'What\'s Included',
+    promoTerms: 'Terms & Conditions',
+    promoDuration: 'Service Duration',
+    promoBookNow: 'Book via WhatsApp',
+    promoShare: 'Share Promo',
   }
 };
 
@@ -448,5 +1224,28 @@ const L = computed(() => labels[props.locale]);
 </script>
 
 <style scoped>
-/* Anda dapat menambahkan gaya kustom di sini jika diperlukan */
+/* Style untuk line-clamp */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+/* Ini adalah trik CSS untuk menyembunyikan scrollbar di container slider */
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.hide-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+/* WARNA BRAND */
+.bg-brand-red { background-color: #EC2529; }
+.text-brand-red { color: #EC2529; }
+
+/* Style untuk link WhatsApp */
+.no-underline {
+  text-decoration: none;
+}
 </style>
